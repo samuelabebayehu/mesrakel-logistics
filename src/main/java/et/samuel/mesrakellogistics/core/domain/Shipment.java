@@ -34,4 +34,26 @@ public class Shipment {
     private UUID assignedCourierId;
     private String notes;
 
+    public void validateForPricing(){
+        if(parcelDimensions == null){
+            throw new IllegalStateException("ParcelDimensions cannot be null");
+        }
+        if(weight == null){
+            throw new IllegalStateException("Weight cannot be null");
+        }
+    }
+
+    public void initialize(){
+        this.id = UUID.randomUUID();
+        this.trackingNumber = "TRK"+UUID.randomUUID().toString().substring(0,8).toLowerCase();
+        this.shippingStatus = ShipmentStatus.PENDING;
+        this.createdAt = Instant.now();
+        this.updatedAt = Instant.now();
+    }
+
+    public void assignToCourier(Courier courier){
+        this.assignedCourierId = courier.getId();
+        this.shippingStatus = ShipmentStatus.ASSIGNED;
+        this.updatedAt = Instant.now();
+    }
 }
