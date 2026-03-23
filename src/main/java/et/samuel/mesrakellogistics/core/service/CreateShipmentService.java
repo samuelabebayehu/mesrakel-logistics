@@ -7,9 +7,6 @@ import et.samuel.mesrakellogistics.core.ports.output.ShipmentRepositoryPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-import java.util.UUID;
-
 @Service
 @RequiredArgsConstructor
 public class CreateShipmentService implements CreateShipmentUseCase {

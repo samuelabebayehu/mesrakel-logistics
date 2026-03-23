@@ -1,0 +1,34 @@
+### Create a New Shipment
+POST http://localhost:8080/api/v1/shipments
+Content-Type: application/json
+
+{
+  "senderName": "Samuel Developer",
+  "recipientName": "Mesrakel Logistics Hub",
+  "contactPhone": "+251911223344",
+  "shippingOrigin": {
+    "street": "Bole Road",
+    "city": "Addis Ababa",
+    "state": "Addis Ababa",
+    "zip": "1000",
+    "country": "Ethiopia"
+  },
+  "shippingDestination": {
+    "street": "Kazanchis",
+    "city": "Addis Ababa",
+    "state": "Addis Ababa",
+    "zip": "1000",
+    "country": "Ethiopia"
+  },
+  "parcelDimensions": {
+    "length": 30.0,
+    "width": 20.0,
+    "height": 10.0,
+    "unit": "cm"
+  },
+  "weight": 2.5,
+  "notes": "Handle with care - Electronics"
+}
+
+### Get Shipment by ID (Placeholder for your next task)
+GET http://localhost:8080/api/v1/shipments/{{shipmentId}}
