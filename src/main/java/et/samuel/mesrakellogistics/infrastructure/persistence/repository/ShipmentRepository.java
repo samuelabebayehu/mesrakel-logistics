@@ -4,8 +4,7 @@ import et.samuel.mesrakellogistics.infrastructure.persistence.document.ShipmentD
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface ShipmentRepository extends MongoRepository<ShipmentDocument,String> {
-    List<ShipmentDocument> findByShipmentId(String shipmentId);
-
 }

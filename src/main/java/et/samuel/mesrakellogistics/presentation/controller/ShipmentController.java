@@ -2,6 +2,7 @@ package et.samuel.mesrakellogistics.presentation.controller;
 
 import et.samuel.mesrakellogistics.core.domain.Shipment;
 import et.samuel.mesrakellogistics.core.ports.input.CreateShipmentUseCase;
+import et.samuel.mesrakellogistics.core.ports.input.SearchShipmentsUseCase;
 import et.samuel.mesrakellogistics.presentation.dto.CreateShipmentRequest;
 import et.samuel.mesrakellogistics.presentation.dto.ShipmentResponse;
 import et.samuel.mesrakellogistics.presentation.mapper.ShipmentPresentationMapper;
@@ -9,12 +10,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api/v1/shipments")
 @RequiredArgsConstructor
 public class ShipmentController {
 
     private final CreateShipmentUseCase createShipmentUseCase;
+    private final SearchShipmentsUseCase searchShipmentsUseCase;
     private final ShipmentPresentationMapper mapper;
 
     @PostMapping
@@ -25,5 +29,12 @@ public class ShipmentController {
         Shipment createdShipment = createShipmentUseCase.create(shipment);
 
         return mapper.toResponse(createdShipment)  ;
+    }
+
+    @GetMapping("/${id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Optional<ShipmentResponse> findShipmentById(@RequestParam String id){
+        Optional<Shipment> shipment = searchShipmentsUseCase.searchShipment(id);
+        return mapper.toResponse(shipment);
     }
 }

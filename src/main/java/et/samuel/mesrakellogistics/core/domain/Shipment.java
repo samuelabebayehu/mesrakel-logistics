@@ -10,7 +10,6 @@ import java.time.Instant;
 import java.util.UUID;
 
 @Getter
-@Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Builder
 @AllArgsConstructor
@@ -55,5 +54,9 @@ public class Shipment {
         this.assignedCourierId = courier.getId();
         this.shippingStatus = ShipmentStatus.ASSIGNED;
         this.updatedAt = Instant.now();
+    }
+
+    public void applyPricing(Money money){
+        this.price = money;
     }
 }

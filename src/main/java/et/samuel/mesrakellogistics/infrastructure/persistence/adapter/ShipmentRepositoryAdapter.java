@@ -8,6 +8,8 @@ import et.samuel.mesrakellogistics.infrastructure.persistence.repository.Shipmen
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 @RequiredArgsConstructor
 public class ShipmentRepositoryAdapter implements ShipmentRepositoryPort {
@@ -20,5 +22,13 @@ public class ShipmentRepositoryAdapter implements ShipmentRepositoryPort {
         ShipmentDocument shipmentDocument = shipmentPersistenceMapper.toDocument(shipment);
         shipmentRepository.save(shipmentDocument);
         return shipmentPersistenceMapper.toDomain(shipmentDocument);
+    }
+
+    @Override
+    public Shipment find(String id){
+
+        ShipmentDocument shipmentDocument = shipmentRepository.findById(id);
+        Shipment shipment = shipmentPersistenceMapper.toDomain(shipmentDocument);
+        return shipment;
     }
 }

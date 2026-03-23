@@ -5,9 +5,7 @@ import et.samuel.mesrakellogistics.core.domain.vo.Money;
 import et.samuel.mesrakellogistics.core.ports.input.CreateShipmentUseCase;
 import et.samuel.mesrakellogistics.core.ports.output.ShipmentRepositoryPort;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
-@Service
 @RequiredArgsConstructor
 public class CreateShipmentService implements CreateShipmentUseCase {
     private final ShipmentRepositoryPort shipmentRepository;
@@ -24,7 +22,7 @@ public class CreateShipmentService implements CreateShipmentUseCase {
                 "ETB"
         );
 
-        shipment.setPrice(calculatedPrice);
+        shipment.applyPricing(calculatedPrice);
         return shipmentRepository.create(shipment);
     }
 }

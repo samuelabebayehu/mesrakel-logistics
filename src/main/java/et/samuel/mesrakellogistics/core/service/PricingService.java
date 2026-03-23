@@ -2,11 +2,10 @@ package et.samuel.mesrakellogistics.core.service;
 
 import et.samuel.mesrakellogistics.core.domain.vo.Money;
 import et.samuel.mesrakellogistics.core.domain.vo.ParcelDimensions;
-import org.springframework.stereotype.Service;
+
 
 import java.math.BigDecimal;
 
-@Service
 public class PricingService {
     private static final BigDecimal VOLUME_RATE = new BigDecimal("0.05");
     private static final BigDecimal WEIGHT_RATE = new BigDecimal("0.10");
