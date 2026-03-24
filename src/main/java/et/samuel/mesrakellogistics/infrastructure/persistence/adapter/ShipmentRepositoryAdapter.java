@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
@@ -25,10 +26,8 @@ public class ShipmentRepositoryAdapter implements ShipmentRepositoryPort {
     }
 
     @Override
-    public Shipment find(String id){
-
-        ShipmentDocument shipmentDocument = shipmentRepository.findById(id);
-        Shipment shipment = shipmentPersistenceMapper.toDomain(shipmentDocument);
-        return shipment;
+    public Optional<Shipment> find(String id){
+        return shipmentRepository.findById(UUID.fromString(id))
+                .map(shipmentPersistenceMapper::toDomain);
     }
 }

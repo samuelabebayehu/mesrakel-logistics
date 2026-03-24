@@ -5,6 +5,8 @@ import et.samuel.mesrakellogistics.core.ports.input.SearchShipmentsUseCase;
 import et.samuel.mesrakellogistics.core.ports.output.ShipmentRepositoryPort;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Optional;
+
 
 @RequiredArgsConstructor
 public class SearchShipmentService implements SearchShipmentsUseCase {
@@ -12,7 +14,7 @@ public class SearchShipmentService implements SearchShipmentsUseCase {
     private final ShipmentRepositoryPort shipmentRepository;
 
     @Override
-    public Shipment searchShipment(String id) {
+    public Optional<Shipment> searchShipment(String id) {
         return shipmentRepository.find(id);
     }
 }

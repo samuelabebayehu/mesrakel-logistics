@@ -3,9 +3,11 @@ package et.samuel.mesrakellogistics.presentation.controller;
 import et.samuel.mesrakellogistics.core.domain.Shipment;
 import et.samuel.mesrakellogistics.core.ports.input.CreateShipmentUseCase;
 import et.samuel.mesrakellogistics.core.ports.input.SearchShipmentsUseCase;
+import et.samuel.mesrakellogistics.core.exception.ShipmentNotFoundException;
 import et.samuel.mesrakellogistics.presentation.dto.CreateShipmentRequest;
 import et.samuel.mesrakellogistics.presentation.dto.ShipmentResponse;
 import et.samuel.mesrakellogistics.presentation.mapper.ShipmentPresentationMapper;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +25,7 @@ public class ShipmentController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ShipmentResponse createShipment(@RequestBody CreateShipmentRequest request) {
+    public ShipmentResponse createShipment(@Valid @RequestBody CreateShipmentRequest request) {
         Shipment shipment = mapper.toDomain(request);
 
         Shipment createdShipment = createShipmentUseCase.create(shipment);
@@ -31,10 +33,11 @@ public class ShipmentController {
         return mapper.toResponse(createdShipment)  ;
     }
 
-    @GetMapping("/${id}")
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Optional<ShipmentResponse> findShipmentById(@RequestParam String id){
-        Optional<Shipment> shipment = searchShipmentsUseCase.searchShipment(id);
-        return mapper.toResponse(shipment);
+    public ShipmentResponse findShipmentById(@PathVariable String id){
+        return searchShipmentsUseCase.searchShipment(id)
+                .map(mapper::toResponse)
+                .orElseThrow(() -> new ShipmentNotFoundException(id));
     }
 }

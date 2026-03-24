@@ -4,6 +4,7 @@ import et.samuel.mesrakellogistics.core.domain.vo.Address;
 import et.samuel.mesrakellogistics.core.domain.vo.Money;
 import et.samuel.mesrakellogistics.core.domain.vo.ParcelDimensions;
 import et.samuel.mesrakellogistics.core.domain.vo.ShipmentStatus;
+import et.samuel.mesrakellogistics.core.exception.InvalidParcelDimensionsException;
 import lombok.*;
 
 import java.time.Instant;
@@ -35,10 +36,10 @@ public class Shipment {
 
     public void validateForPricing(){
         if(parcelDimensions == null){
-            throw new IllegalStateException("ParcelDimensions cannot be null");
+            throw new InvalidParcelDimensionsException("ParcelDimensions cannot be null");
         }
         if(weight == null){
-            throw new IllegalStateException("Weight cannot be null");
+            throw new InvalidParcelDimensionsException("Weight cannot be null");
         }
     }
 
