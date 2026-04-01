@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface CourierRepositoryPort {
 
-    Courier create(Courier courier);
+    Courier save(Courier courier);
 
     Optional<Courier> find(String courierId);
 

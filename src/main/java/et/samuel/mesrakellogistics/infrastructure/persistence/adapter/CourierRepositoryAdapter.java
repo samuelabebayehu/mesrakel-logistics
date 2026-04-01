@@ -18,7 +18,7 @@ public class CourierRepositoryAdapter implements CourierRepositoryPort {
     private final CourierPersistenceMapper courierPersistenceMapper;
 
     @Override
-    public Courier create(Courier courier) {
+    public Courier save(Courier courier) {
         CourierDocument courierDocument = courierPersistenceMapper.toDocument(courier);
         courierRepository.save(courierDocument);
         return courierPersistenceMapper.toDomain(courierDocument);

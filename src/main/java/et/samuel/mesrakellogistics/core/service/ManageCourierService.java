@@ -15,7 +15,7 @@ public class ManageCourierService implements ManageCourierUseCase {
     @Override
     public Courier createCourier(Courier courier) {
 
-        return courierRepositoryPort.create(courier);
+        return courierRepositoryPort.save(courier);
     }
 
     @Override

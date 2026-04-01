@@ -8,7 +8,6 @@ import et.samuel.mesrakellogistics.core.ports.input.AcceptShipmentUseCase;
 import et.samuel.mesrakellogistics.core.ports.output.CourierRepositoryPort;
 import et.samuel.mesrakellogistics.core.ports.output.ShipmentRepositoryPort;
 import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 public class AcceptShipmentService implements AcceptShipmentUseCase {
@@ -26,7 +25,7 @@ public class AcceptShipmentService implements AcceptShipmentUseCase {
         shipment.assignToCourier(courier);
         courier.markAsOnDuty();
         shipmentRepositoryPort.create(shipment);
-        courierRepositoryPort.create(courier);
+        courierRepositoryPort.save(courier);
 
         return shipment;
     }

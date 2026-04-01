@@ -34,6 +34,28 @@ public class Courier {
         this.updatedAt = Instant.now();
 
     }
+
+    public void updateContactDetails(String name, String phoneNumber){
+        if(this.name == null){
+            throw new InvalidCourierStatus("Courier name is null");
+        }
+        if(this.phoneNumber == null){
+            throw new InvalidCourierStatus("Courier phone number is null");
+        }
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void  updateVehicleType(VehicleType vehicleType, Double maxWeightCapacity){
+        if(this.vehicleType == null){
+            throw new InvalidCourierStatus("Courier vehicle type is null");
+        }
+        if(this.maxWeightCapacity == null){
+            throw new InvalidCourierStatus("Courier max weight capacity is null");
+        }
+        this.vehicleType = vehicleType;
+        this.maxWeightCapacity = maxWeightCapacity;
+    }
     public void completeDelivery(){
         if(courierStatus != CourierStatus.ON_DELIVERY){
             throw new InvalidCourierStatus("Courier status "+ this.getCourierStatus() + " invalid for courier Id "+this.getId());
