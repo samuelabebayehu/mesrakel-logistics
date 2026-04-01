@@ -1,6 +1,7 @@
 package et.samuel.mesrakellogistics.presentation.controller;
 
 import et.samuel.mesrakellogistics.core.domain.Shipment;
+import et.samuel.mesrakellogistics.core.ports.input.AcceptShipmentUseCase;
 import et.samuel.mesrakellogistics.core.ports.input.CreateShipmentUseCase;
 import et.samuel.mesrakellogistics.core.ports.input.SearchShipmentsUseCase;
 import et.samuel.mesrakellogistics.core.exception.ShipmentNotFoundException;
@@ -21,6 +22,7 @@ public class ShipmentController {
 
     private final CreateShipmentUseCase createShipmentUseCase;
     private final SearchShipmentsUseCase searchShipmentsUseCase;
+    private final AcceptShipmentUseCase acceptShipmentUseCase;
     private final ShipmentPresentationMapper mapper;
 
     @PostMapping
@@ -39,5 +41,11 @@ public class ShipmentController {
         return searchShipmentsUseCase.searchShipment(id)
                 .map(mapper::toResponse)
                 .orElseThrow(() -> new ShipmentNotFoundException(id));
+    }
+
+    @PostMapping("/assign/{shipmentId}/{courierId}")
+    @ResponseStatus(HttpStatus.OK)
+    public ShipmentResponse acceptShipment(@PathVariable String shipmentId,@PathVariable String courierId){
+        return mapper.toResponse(acceptShipmentUseCase.acceptShipment(shipmentId,courierId));
     }
 }

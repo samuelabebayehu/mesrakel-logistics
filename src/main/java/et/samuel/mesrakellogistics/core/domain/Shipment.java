@@ -5,6 +5,7 @@ import et.samuel.mesrakellogistics.core.domain.vo.Money;
 import et.samuel.mesrakellogistics.core.domain.vo.ParcelDimensions;
 import et.samuel.mesrakellogistics.core.domain.vo.ShipmentStatus;
 import et.samuel.mesrakellogistics.core.exception.InvalidParcelDimensionsException;
+import et.samuel.mesrakellogistics.core.exception.InvalidShipmentStatusException;
 import lombok.*;
 
 import java.time.Instant;
@@ -52,9 +53,13 @@ public class Shipment {
     }
 
     public void assignToCourier(Courier courier){
+        if(shippingStatus != ShipmentStatus.PENDING){
+            throw new InvalidShipmentStatusException("Invalid shipment status for shipment ID " + this.id + " with status " + this.shippingStatus);
+        }
         this.assignedCourierId = courier.getId();
         this.shippingStatus = ShipmentStatus.ASSIGNED;
         this.updatedAt = Instant.now();
+
     }
 
     public void applyPricing(Money money){

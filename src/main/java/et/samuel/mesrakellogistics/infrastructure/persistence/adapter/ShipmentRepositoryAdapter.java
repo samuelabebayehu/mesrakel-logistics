@@ -19,7 +19,6 @@ public class ShipmentRepositoryAdapter implements ShipmentRepositoryPort {
 
     @Override
     public Shipment create(Shipment shipment) {
-
         ShipmentDocument shipmentDocument = shipmentPersistenceMapper.toDocument(shipment);
         shipmentRepository.save(shipmentDocument);
         return shipmentPersistenceMapper.toDomain(shipmentDocument);
