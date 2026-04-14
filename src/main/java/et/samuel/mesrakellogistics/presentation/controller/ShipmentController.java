@@ -13,8 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @RestController
 @RequestMapping("/api/v1/shipments")
 @RequiredArgsConstructor
@@ -30,7 +28,7 @@ public class ShipmentController {
     public ShipmentResponse createShipment(@Valid @RequestBody CreateShipmentRequest request) {
         Shipment shipment = mapper.toDomain(request);
 
-        Shipment createdShipment = createShipmentUseCase.create(shipment);
+        Shipment createdShipment = createShipmentUseCase.createShipment(shipment);
 
         return mapper.toResponse(createdShipment)  ;
     }

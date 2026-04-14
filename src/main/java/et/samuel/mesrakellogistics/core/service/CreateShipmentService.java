@@ -12,7 +12,7 @@ public class CreateShipmentService implements CreateShipmentUseCase {
     private final PricingService pricingService;
 
     @Override
-    public Shipment create(Shipment shipment) {
+    public Shipment createShipment(Shipment shipment) {
         shipment.initialize();
         shipment.validateForPricing();
 
